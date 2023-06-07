@@ -12,35 +12,28 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-# ...
-
 jobs:
   slim_build:
     runs-on: ubuntu-latest
-    # You can use either of the ubuntu-20.04 or ubuntu-22.04 runner
-
     steps:
-      # You might want to Checkout your repo first, but not mandatory
-      - uses: actions/checkout@v3
-      # Cleanup The Actions Workspace Using Custom Composite Run Actions
-      - uses: rokibhasansagar/slimhub_actions@main
-        # Optional key, "retain": Use only if you want something to keep
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "Minimal Build"
+        uses: rokibhasansagar/slimhub_actions@main
         with:
-          retain: "apt,wget"
-          # The values must match from the below list
-      # That's it! Now use your normal steps
+          retain: "apt,wget,curl"
       - name: "Install Depency"
         run: |
+          sudo apt update
           sudo apt install -y openssh-server screen python git openjdk-8-jdk android-tools-adb bc bison build-essential curl flex g++-multilib gcc-multilib gnupg gperf imagemagick lib32ncurses-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zip zlib1g-dev libtinfo5 libncurses5
           mkdir ~/.bin
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           chmod a+x ~/.bin/repo
           echo "export PATH=~/bin:$PATH" >> ~/.bashrc
-          pwd
+          pwd && ls
        - name: "ROM Sync"
          run: |
-           # sync rom
+           echo "sync rom"
            repo init --depth=1 --no-repo-verify -u https://github.com/Evolution-X/manifest.git -b tiramisu -g default,-mips,-darwin,-notdefault
            git clone https://github.com/mitsu00/local_manifest.git --depth 1 -b main .repo/local_manifests
            repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
