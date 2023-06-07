@@ -33,3 +33,26 @@ jobs:
       - name: "Install Depency"
         run: |
           sudo apt install -y openssh-server screen python git openjdk-8-jdk android-tools-adb bc bison build-essential curl flex g++-multilib gcc-multilib gnupg gperf imagemagick lib32ncurses-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc yasm zip zlib1g-dev libtinfo5 libncurses5
+          mkdir ~/.bin
+          curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+          chmod a+x ~/.bin/repo
+          echo "export PATH=~/bin:$PATH" >> ~/.bashrc
+          pwd
+       - name: "ROM Sync"
+         run: |
+           # sync rom
+           repo init --depth=1 --no-repo-verify -u https://github.com/Evolution-X/manifest.git -b tiramisu -g default,-mips,-darwin,-notdefault
+           git clone https://github.com/mitsu00/local_manifest.git --depth 1 -b main .repo/local_manifests
+           repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+           # build rom
+           . build/envsetup.sh
+           lunch evolution_merlinx-userdebug
+           export KBUILD_BUILD_USER=ozipoetra
+           export KBUILD_BUILD_HOST=ozip.my.id
+           export BUILD_USERNAME=ozipoetra
+           export BUILD_HOSTNAME=ozip.my.id
+           export BUILD_BROKEN_MISSING_REQUIRED_MODULES=true
+           export TZ=Asia/Jakarta
+           make sepolicy
+           make bootimage
+           make init
