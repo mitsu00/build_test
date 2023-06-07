@@ -23,8 +23,8 @@ jobs:
           mkdir ~/.bin
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           chmod a+x ~/.bin/repo
-          export PATH=$PATH:~/.bin/repo
-          pwd && ls
+          export PATH=/home/runner/.bin:$PATH
+          pwd && ls -al
       - name: "ROM Sync"
         run: |
           echo "sync rom"
