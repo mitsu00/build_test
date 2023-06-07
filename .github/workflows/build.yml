@@ -23,10 +23,11 @@ jobs:
           mkdir ~/.bin
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           chmod a+x ~/.bin/repo
-          export PATH=$PATH:~/.bin
+          echo "success"
           pwd && ls -al
       - name: "ROM Sync"
         run: |
+          export PATH=$PATH:$GITHUB_WORKSPACE/.bin
           echo "sync rom"
           repo init --depth=1 --no-repo-verify -u https://github.com/Evolution-X/manifest.git -b tiramisu -g default,-mips,-darwin,-notdefault
           git clone https://github.com/mitsu00/local_manifest.git --depth 1 -b main .repo/local_manifests
