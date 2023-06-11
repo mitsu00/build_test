@@ -47,4 +47,4 @@ jobs:
       - name: Upload File
         run: |
           cd tg-upload*
-          python tg-upload.py --bot=5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path=../*.zip --chat_id=965784022
+          python tg-upload.py --bot 5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path ../*.zip --chat_id 965784022
