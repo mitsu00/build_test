@@ -34,5 +34,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: ./*.zip
+          artifacts: AlphaDroid-13.0-20230611-merlinx-PIXEL-v1.5.1.zip
           token: ${{ secrets.GITHUB_TOKEN }} 
