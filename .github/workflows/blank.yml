@@ -24,33 +24,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      # Runs a single command using the runners shell
-      - name: Install Requirement
-        run: |
-          #wget https://github.com/TheCaduceus/tg-upload/archive/refs/tags/v1.0.9.zip
-          #unzip *.zip
-          #cd tg-upload*
-          #pip install -r requirements.txt
-          #python tg-upload.py -h
-          ls
-          pwd
 
       # Runs a set of commands using the runners shell
       - name: Download File
         run: |
           wget -O AlphaDroid-13.0-20230611-merlinx-PIXEL-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip/download
-
-      - name: Upload File
-        run: |
-          #pwd
-          ls
-          #cd tg-upload*
 
       - name: Release build
         uses: ncipollo/release-action@v1
