@@ -24,13 +24,27 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install Requirement
+        run: |
+          wget https://github.com/TheCaduceus/tg-upload/archive/refs/tags/v1.0.9.zip
+          unzip tg-upload*.zip
+          cd tg-upload*
+          pip install -r requirements.txt
+          python tg-upload.py -h
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Download File
         run: |
           wget -O AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip/download
-          curl -X POST -H "Content-Type:multipart/form-data" -F chat_id=965784022 -F document=@"AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip" "https://api.telegram.org/bot5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE/sendDocument"
+
+      - name: Upload File
+        run: |
+          cd ~/tg-upload*
+          python tg-upload.py --bot=5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path=../*.zip --chat_id=965784022
