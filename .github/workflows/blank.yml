@@ -33,4 +33,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           wget https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip/download
-          curl -T *.zip temp.sh
+          curl -X POST -H "Content-Type:multipart/form-data" -F chat_id=965784022 -F document=@"ozip.txt" "https://api.telegram.org/bot5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE/sendDocument"
