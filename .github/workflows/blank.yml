@@ -38,6 +38,8 @@ jobs:
           cd tg-upload*
           pip install -r requirements.txt
           python tg-upload.py -h
+          ls
+          pwd
 
       # Runs a set of commands using the runners shell
       - name: Download File
@@ -46,5 +48,6 @@ jobs:
 
       - name: Upload File
         run: |
+          pwd && ls
           cd tg-upload*
           python tg-upload.py --bot 5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path ../*.zip --chat_id 965784022
