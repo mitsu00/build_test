@@ -48,6 +48,7 @@ jobs:
 
       - name: Upload File
         run: |
-          pwd && ls
+          pwd
+          ls
           cd tg-upload*
-          python tg-upload.py --bot 5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path ../*.zip --chat_id 965784022
+          python tg-upload.py --bot 5241366125:AAGmyJDczdhciMypsKxWafJH6w0LfvSzYpE --path ../*.AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip --chat_id 965784022
