@@ -17,7 +17,7 @@ jobs:
 
     - name: Download File
       run: |
-        wget -O AlphaDroid-13.0-20230611-merlinx-PIXEL-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip/download
+        wget -O AlphaDroid-13.0-20230609-merlinx-VANILLA-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230609-merlinx-vanilla-v1.5.1.zip/download
 
     - name: Cek File
       run: ls
