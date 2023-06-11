@@ -1,3 +1,35 @@
+name: Build on Tag
+
+on:
+  push:
+    tags: '*'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout kernel source
+      uses: actions/checkout@v3
+
+    - name: Download File
+      run: |
+        wget -O AlphaDroid-13.0-20230611-merlinx-PIXEL-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230611-merlinx-full_gapps-v1.5.1.zip/download
+
+    - name: Cek File
+      run: ls
+
+    - name: Release build
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        artifacts: ./*.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+
 # This is a basic workflow to help you get started with Actions
 
 name: CI Uploader
