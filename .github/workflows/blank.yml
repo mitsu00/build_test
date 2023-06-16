@@ -1,10 +1,20 @@
-name: Build on Tag
+name: Kyuun
 
 on:
-  push:
-    tags: '*'
-
   workflow_dispatch:
+    inputs:
+      urls: 
+        description: 'URL'
+        required: true
+      names:
+        description: 'File Name'
+        required: true
+      releaseName:
+        description: 'Release Name'
+        required: true
+      tagName:
+        description: 'Tag Name'
+        required: true
 
 jobs:
   build:
@@ -17,7 +27,7 @@ jobs:
 
     - name: Download File
       run: |
-        wget -O AlphaDroid-13.0-20230615-merlinx-full_gapps-v1.5.1.zip https://sourceforge.net/projects/rom-builders/files/merlinx/AlphaDroid-13.0-20230615-merlinx-full_gapps-v1.5.1.zip/download
+        wget -O ${{ github.event.inputs.names }} ${{ github.event.inputs.urls }}
 
     - name: Cek File
       run: ls
@@ -28,8 +38,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.5.1
-        release_name: AlphaDroid
+        tag_name: ${{ github.event.inputs.tagName }}
+        release_name: ${{ github.event.inputs.releaseName }}
         draft: true
         prerelease: false
 
@@ -38,8 +48,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./AlphaDroid-13.0-20230615-merlinx-full_gapps-v1.5.1.zip
-        asset_name: AlphaDroid-13.0-20230615-merlinx-full_gapps-v1.5.1.zip
+        asset_path: ./${{ github.event.inputs.names }}
+        asset_name: ${{ github.event.inputs.names }}
         asset_content_type: application/zip
 
     - uses: eregon/publish-release@v1
